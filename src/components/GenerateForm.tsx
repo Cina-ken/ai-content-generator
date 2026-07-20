@@ -50,8 +50,8 @@ export default function GenerateForm() {
   }
 
   return (
-    <div className="grid grid-cols-[200px_1fr]">
-      <div className="flex flex-col gap-3 border-r border-line p-4">
+    <div className="grid grid-cols-1 sm:grid-cols-[200px_1fr]">
+      <div className="flex flex-col gap-3 border-b border-line p-4 sm:border-b-0 sm:border-r">
         <div>
           <div className="mb-1.5 text-[11px] text-muted-2">Content type</div>
           <div className="relative">

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Check, Sparkles } from "lucide-react";
 import { getCurrentUser, getSubscriptionStatus } from "@/lib/auth";
 import { createCheckoutSession, openBillingPortal } from "@/lib/billing-actions";
+import { Footer } from "@/components/Footer";
 
 const freeFeatures = [
   "5 generations every month",
@@ -21,8 +22,8 @@ export default async function PricingPage() {
   const isActive = status === "active";
 
   return (
-    <div className="flex flex-1 flex-col items-center bg-page px-4 py-10">
-      <div className="w-full max-w-3xl">
+    <div className="flex flex-1 flex-col items-center bg-page">
+      <div className="w-full max-w-3xl px-4 py-10">
         <Link
           href="/"
           className="mb-10 flex items-center justify-center gap-2"
@@ -129,6 +130,8 @@ export default async function PricingPage() {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

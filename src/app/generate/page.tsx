@@ -6,6 +6,7 @@ import { getQuotaStatus } from "@/lib/quota";
 import { createClient } from "@/lib/supabase/server";
 import { signOut } from "@/lib/auth-actions";
 import GenerateForm from "@/components/GenerateForm";
+import { Footer } from "@/components/Footer";
 
 function formatRelativeTime(iso: string): string {
   const diffMs = Date.now() - new Date(iso).getTime();
@@ -40,17 +41,19 @@ export default async function GeneratePage() {
   return (
     <div className="flex flex-1 flex-col items-center">
       <div className="w-full max-w-[680px]">
-        <header className="flex items-center justify-between border-b border-line px-5 py-3.5">
+        <header className="flex items-center justify-between gap-2 border-b border-line px-4 py-3 sm:px-5 sm:py-3.5">
           <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-[26px] w-[26px] items-center justify-center rounded-[7px] bg-accent">
+            <div className="flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-[7px] bg-accent">
               <Sparkles size={15} className="text-white" />
             </div>
             <span className="text-sm font-medium text-[#f4f4f6]">
               ContentForge
             </span>
           </Link>
-          <div className="flex items-center gap-4 text-xs">
-            <span className="text-ink-secondary">Generate</span>
+          <div className="flex items-center gap-3 text-xs sm:gap-4">
+            <span className="hidden text-ink-secondary sm:inline">
+              Generate
+            </span>
             <a href="#recent" className="text-muted">
               History
             </a>
@@ -58,7 +61,7 @@ export default async function GeneratePage() {
               <button
                 type="submit"
                 title="Sign out"
-                className="flex h-[26px] w-[26px] items-center justify-center rounded-full bg-[#2a2e42] text-[11px] font-medium text-[#c7c9d9] transition-colors hover:bg-[#353a54]"
+                className="flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-full bg-[#2a2e42] text-[11px] font-medium text-[#c7c9d9] transition-colors hover:bg-[#353a54]"
               >
                 {initials}
               </button>
@@ -67,12 +70,15 @@ export default async function GeneratePage() {
         </header>
 
         {!subscribed && (
-          <div className="bg-[rgba(127,119,221,0.06)] px-5 py-2.5">
-            <div className="mb-1.5 flex items-center justify-between">
+          <div className="bg-[rgba(127,119,221,0.06)] px-4 py-2.5 sm:px-5">
+            <div className="mb-1.5 flex items-center justify-between gap-2">
               <span className="text-xs text-muted">
                 {quota.count} of {quota.limit} free generations this month
               </span>
-              <Link href="/pricing" className="text-xs text-accent-secondary">
+              <Link
+                href="/pricing"
+                className="shrink-0 text-xs text-accent-secondary"
+              >
                 Upgrade
               </Link>
             </div>
@@ -89,19 +95,19 @@ export default async function GeneratePage() {
 
         <GenerateForm />
 
-        <div id="recent" className="border-t border-line px-5 py-4">
+        <div id="recent" className="border-t border-line px-4 py-4 sm:px-5">
           <div className="mb-2.5 text-[11px] text-muted-2">Recent</div>
           <div className="flex flex-col gap-2">
             {history && history.length > 0 ? (
               history.map((g) => (
                 <div
                   key={g.id}
-                  className="flex items-center justify-between text-xs"
+                  className="flex items-center justify-between gap-2 text-xs"
                 >
-                  <span className="text-[#c7c9d9]">
+                  <span className="min-w-0 truncate text-[#c7c9d9]">
                     {g.content_type}, {g.prompt}
                   </span>
-                  <span className="text-[#5c5e70]">
+                  <span className="shrink-0 text-[#5c5e70]">
                     {formatRelativeTime(g.created_at)}
                   </span>
                 </div>
@@ -114,6 +120,8 @@ export default async function GeneratePage() {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

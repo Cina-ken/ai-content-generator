@@ -50,19 +50,19 @@ export default function DemoPanel() {
         ))}
       </div>
 
-      <div className="mb-3 flex gap-2">
+      <div className="mb-3 flex flex-col gap-2 sm:flex-row">
         <input
           type="text"
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
           placeholder="Describe your topic"
-          className="flex-1 rounded-lg border border-line-strong bg-panel px-3 py-2.5 text-xs text-ink placeholder:text-placeholder focus:outline-none focus:ring-1 focus:ring-accent"
+          className="w-full flex-1 rounded-lg border border-line-strong bg-panel px-3 py-2.5 text-xs text-ink placeholder:text-placeholder focus:outline-none focus:ring-1 focus:ring-accent"
         />
         <button
           type="button"
           onClick={handleTryIt}
           disabled={isLoading || !topic.trim()}
-          className="flex items-center gap-1.5 whitespace-nowrap rounded-lg bg-accent px-4 text-xs font-medium text-white transition-colors hover:bg-accent-hover disabled:opacity-50"
+          className="flex items-center justify-center gap-1.5 whitespace-nowrap rounded-lg bg-accent px-4 py-2.5 text-xs font-medium text-white transition-colors hover:bg-accent-hover disabled:opacity-50 sm:py-0"
         >
           <Play size={13} />
           Try it
