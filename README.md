@@ -4,7 +4,7 @@ An AI content generator with streamed OpenAI output, a Stripe-gated unlimited pl
 
 [![CI](https://github.com/Cina-ken/ai-content-generator/actions/workflows/ci.yml/badge.svg)](https://github.com/Cina-ken/ai-content-generator/actions/workflows/ci.yml)
 
-**Live app:** _add after deploy_
+**Live app:** [ai-content-generator-kappa-tawny.vercel.app](https://ai-content-generator-kappa-tawny.vercel.app)
 
 ![Landing page with live demo](docs/screenshots/landing.png)
 
@@ -45,7 +45,7 @@ Supabase (Postgres + Auth)
 
 Auth state is refreshed on every request via Next.js middleware ([`src/proxy.ts`](src/proxy.ts) → [`src/lib/supabase/middleware.ts`](src/lib/supabase/middleware.ts)), so Server Components always see a valid session without a client-side round trip. `src/proxy.ts` (not `middleware.ts`) is intentional, not a typo: as of Next.js 16 the `middleware.ts` convention is deprecated in favor of `proxy.ts`, and Next.js 16.2.10 (this project's version) throws a build error if both exist. See [nextjs.org/docs/messages/middleware-to-proxy](https://nextjs.org/docs/messages/middleware-to-proxy).
 
-The webhook handler ([`src/app/api/stripe/webhook/route.ts`](src/app/api/stripe/webhook/route.ts)) verifies the Stripe signature, then routes `checkout.session.completed`, `customer.subscription.updated`, and `customer.subscription.deleted` into `syncSubscriptionToSupabase`, using `metadata.supabase_user_id ?? client_reference_id` as the user-id fallback so a webhook lookup never depends on a single field being present.
+The webhook handler ([`src/app/api/stripe/webhook/route.ts`](src/app/api/stripe/webhook/route.ts)) verifies the Stripe signature, then routes `checkout.session.completed`, `customer.subscription.updated`, and `customer.subscription.deleted` into `syncSubscriptionToSupabase`, using `metadata.supabase_user_id ?? client_reference_id` as the user-id fallback so a webhook lookup never depends on a single field being present. Verified against the live production endpoint with `stripe trigger checkout.session.completed` — signature verification and event routing both confirmed working (`200`, no runtime errors) via Vercel's runtime logs. Note that `stripe trigger`'s generic fixture doesn't set `client_reference_id`/`metadata`, so it exercises endpoint delivery and signature verification but not the `syncSubscriptionToSupabase` write path, which only runs for a session created through the app's own `createCheckoutSession()` flow — end-to-end verification of that path means completing a real test-mode checkout through the UI.
 
 ## The hard part: atomic quota checking
 
