@@ -39,9 +39,9 @@ export default async function GeneratePage() {
   const initials = (user.email ?? "??").slice(0, 2).toUpperCase();
 
   return (
-    <div className="flex flex-1 flex-col items-center">
-      <div className="w-full max-w-[680px]">
-        <header className="flex items-center justify-between gap-2 border-b border-line px-4 py-3 sm:px-5 sm:py-3.5">
+    <div className="flex flex-1 flex-col">
+      <header className="w-full border-b border-line">
+        <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-2 px-4 py-3 sm:px-6 lg:px-8">
           <Link href="/" className="flex items-center gap-2">
             <div className="flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-[7px] bg-accent">
               <Sparkles size={15} className="text-white" />
@@ -67,10 +67,12 @@ export default async function GeneratePage() {
               </button>
             </form>
           </div>
-        </header>
+        </div>
+      </header>
 
-        {!subscribed && (
-          <div className="bg-[rgba(127,119,221,0.06)] px-4 py-2.5 sm:px-5">
+      {!subscribed && (
+        <div className="w-full bg-[rgba(127,119,221,0.06)]">
+          <div className="mx-auto max-w-[1600px] px-4 py-2.5 sm:px-6 lg:px-8">
             <div className="mb-1.5 flex items-center justify-between gap-2">
               <span className="text-xs text-muted">
                 {quota.count} of {quota.limit} free generations this month
@@ -82,7 +84,7 @@ export default async function GeneratePage() {
                 Upgrade
               </Link>
             </div>
-            <div className="h-1 overflow-hidden rounded-full bg-[#1e2233]">
+            <div className="h-1 max-w-md overflow-hidden rounded-full bg-[#1e2233]">
               <div
                 className="h-full bg-accent-secondary"
                 style={{
@@ -91,18 +93,20 @@ export default async function GeneratePage() {
               />
             </div>
           </div>
-        )}
+        </div>
+      )}
 
+      <main className="mx-auto w-full max-w-[1600px] flex-1 px-4 sm:px-6 lg:px-8">
         <GenerateForm />
 
-        <div id="recent" className="border-t border-line px-4 py-4 sm:px-5">
-          <div className="mb-2.5 text-[11px] text-muted-2">Recent</div>
-          <div className="flex flex-col gap-2">
+        <div id="recent" className="border-t border-line py-6">
+          <div className="mb-3 text-[11px] text-muted-2">Recent</div>
+          <div className="grid grid-cols-1 gap-2 lg:grid-cols-2 lg:gap-x-8">
             {history && history.length > 0 ? (
               history.map((g) => (
                 <div
                   key={g.id}
-                  className="flex items-center justify-between gap-2 text-xs"
+                  className="flex items-center justify-between gap-2 border-b border-line py-2 text-xs lg:border-none lg:py-0"
                 >
                   <span className="min-w-0 truncate text-[#c7c9d9]">
                     {g.content_type}, {g.prompt}
@@ -119,7 +123,7 @@ export default async function GeneratePage() {
             )}
           </div>
         </div>
-      </div>
+      </main>
 
       <Footer />
     </div>

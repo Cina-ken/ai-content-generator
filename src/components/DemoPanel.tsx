@@ -32,7 +32,7 @@ export default function DemoPanel() {
   }
 
   return (
-    <div className="mx-5 rounded-xl border border-[color:rgba(127,119,221,0.25)] bg-panel-highlight p-4">
+    <div className="w-full rounded-xl border border-[color:rgba(127,119,221,0.25)] bg-panel-highlight p-4 sm:p-5">
       <div className="mb-3 flex flex-wrap gap-1.5">
         {CONTENT_TYPES.map((type) => (
           <button

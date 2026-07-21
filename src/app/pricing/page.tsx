@@ -23,7 +23,7 @@ export default async function PricingPage() {
 
   return (
     <div className="flex flex-1 flex-col items-center bg-page">
-      <div className="w-full max-w-3xl px-4 py-10">
+      <div className="w-full max-w-5xl px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
         <Link
           href="/"
           className="mb-10 flex items-center justify-center gap-2"
@@ -35,7 +35,7 @@ export default async function PricingPage() {
         </Link>
 
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-ink sm:text-4xl">
+          <h1 className="text-3xl font-bold text-ink sm:text-4xl lg:text-5xl">
             Simple pricing
           </h1>
           <p className="mt-2 text-sm text-muted sm:text-base">
@@ -43,8 +43,8 @@ export default async function PricingPage() {
           </p>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <div className="rounded-2xl border border-line bg-panel p-6">
+        <div className="mx-auto mt-10 grid max-w-3xl grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-8">
+          <div className="rounded-2xl border border-line bg-panel p-6 lg:p-8">
             <span className="text-xs font-semibold uppercase tracking-wide text-muted">
               Free
             </span>
@@ -82,7 +82,7 @@ export default async function PricingPage() {
             )}
           </div>
 
-          <div className="relative rounded-2xl border-2 border-accent bg-panel p-6">
+          <div className="relative rounded-2xl border-2 border-accent bg-panel p-6 lg:p-8">
             <span className="absolute -top-3 right-6 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-white">
               Most popular
             </span>

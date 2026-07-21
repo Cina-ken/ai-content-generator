@@ -50,8 +50,8 @@ export default function GenerateForm() {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-[200px_1fr]">
-      <div className="flex flex-col gap-3 border-b border-line p-4 sm:border-b-0 sm:border-r">
+    <div className="grid grid-cols-1 border-b border-line py-6 md:grid-cols-[280px_1fr] md:gap-8">
+      <div className="flex flex-col gap-3 border-b border-line pb-6 md:border-b-0 md:pb-0">
         <div>
           <div className="mb-1.5 text-[11px] text-muted-2">Content type</div>
           <div className="relative">
@@ -115,36 +115,38 @@ export default function GenerateForm() {
         </button>
       </div>
 
-      <div className="flex min-h-[150px] flex-col gap-3.5 p-5">
-        {parsedError?.type === "quota_exceeded" ? (
-          <div className="rounded-xl border border-line bg-panel-highlight p-4">
-            <p className="text-sm text-ink">{parsedError.message}</p>
-            <form action={createCheckoutSession}>
-              <button
-                type="submit"
-                className="mt-3 rounded-full bg-accent px-4 py-2 text-xs font-medium text-white hover:bg-accent-hover"
-              >
-                Upgrade to Unlimited
-              </button>
-            </form>
-          </div>
-        ) : parsedError ? (
-          <p className="text-xs text-[#f0596c]">{parsedError.message}</p>
-        ) : completion ? (
-          <p className="text-[13px] leading-[1.7] text-ink-secondary">
-            {completion}
-            {isLoading && (
-              <span className="ml-0.5 inline-block h-[13px] w-[2px] translate-y-[2px] bg-accent-secondary align-middle" />
-            )}
-          </p>
-        ) : (
-          <p className="text-[13px] text-placeholder">
-            {isLoading ? "Writing…" : "Your generated copy will appear here."}
-          </p>
-        )}
+      <div className="flex min-h-[200px] flex-col gap-3.5 pt-6 md:border-l md:border-line md:pt-0 md:pl-8">
+        <div className="max-w-2xl flex-1">
+          {parsedError?.type === "quota_exceeded" ? (
+            <div className="rounded-xl border border-line bg-panel-highlight p-4">
+              <p className="text-sm text-ink">{parsedError.message}</p>
+              <form action={createCheckoutSession}>
+                <button
+                  type="submit"
+                  className="mt-3 rounded-full bg-accent px-4 py-2 text-xs font-medium text-white hover:bg-accent-hover"
+                >
+                  Upgrade to Unlimited
+                </button>
+              </form>
+            </div>
+          ) : parsedError ? (
+            <p className="text-xs text-[#f0596c]">{parsedError.message}</p>
+          ) : completion ? (
+            <p className="text-[13px] leading-[1.7] text-ink-secondary sm:text-sm">
+              {completion}
+              {isLoading && (
+                <span className="ml-0.5 inline-block h-[13px] w-[2px] translate-y-[2px] bg-accent-secondary align-middle" />
+              )}
+            </p>
+          ) : (
+            <p className="text-[13px] text-placeholder sm:text-sm">
+              {isLoading ? "Writing…" : "Your generated copy will appear here."}
+            </p>
+          )}
+        </div>
 
         {completion && !parsedError && (
-          <div className="mt-auto flex gap-2">
+          <div className="flex gap-2">
             <button
               type="button"
               onClick={handleCopy}
